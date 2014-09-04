@@ -11,7 +11,7 @@ var currentDateObject = new Date(),
     currentDatetime = currentDateObject.getFullYear() + '-'
         + ((currentDateObject.getMonth() + 1) < 10 ? '0' : '') + (currentDateObject.getMonth() + 1) + '-'
         + (currentDateObject.getDate() < 10 ? '0' : '') + currentDateObject.getDate() + '_'
-        + currentDateObject.getHours() + '-' + currentDateObject.getMinutes() + '-' + currentDateObject.getSeconds();
+        + ((currentDateObject.getHours() + 1) < 10 ? '0' : '') + currentDateObject.getHours() + '-' +((currentDateObject.getMinutes() + 1) < 10 ? '0' : '') +  currentDateObject.getMinutes() + '-' + ((currentDateObject.getSeconds() + 1) < 10 ? '0' : '') + currentDateObject.getSeconds();
 
 
 var concat = require('gulp-concat');
@@ -68,10 +68,14 @@ gulp.task('replace', function () {
                 {
                     match: 'jsScript',
                     replacement: fs.readFileSync('./web/assets/js/all.min.js', 'utf8')
+                },
+                {
+                    match: 'timestamp',
+                    replacement: currentDatetime
                 }
             ]
         }))
-        .pipe(cleanhtml())
+        //.pipe(cleanhtml())
         .pipe(gulp.dest('./web'));
 });
 
@@ -83,9 +87,9 @@ gulp.task('clean', function () {
 
 // Rerun the task when a file changes
 gulp.task('watch', function () {
-    gulp.watch(paths.scripts, ['scripts', 'replace', 'clean']);
-    gulp.watch(paths.less, ['less', 'replace', 'clean']);
-    gulp.watch(paths.index, ['replace']);
+    gulp.watch(paths.scripts, ['scripts', 'less', 'replace', 'clean']);
+    gulp.watch(paths.less, ['scripts', 'less', 'replace', 'clean']);
+    gulp.watch(paths.index, ['scripts', 'less', 'replace', 'clean']);
 });
 
 // The default task (called when you run `gulp` from cli)
