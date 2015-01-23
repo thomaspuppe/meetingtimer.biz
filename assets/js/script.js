@@ -16,14 +16,15 @@ var MT;
             timerDomElement,
             timeDomElement,
             moneyDomElement,
+            //playpauseDomElement,
             settingsIconDomElement,
             settingsDomElement,
             inputAttendeesDomElement,
             inputSalaryDomElement,
             inputCurrencyDomElement,
             inputSubmitDomElement,
-            settingsAreOpen = false,
-            CHARACTERS_CURRENCY = ['&euro;', '&#36;', '&#163;', '&#165'], // EUR, USD, GBP, YEN,
+            settingsAreOpen = true,
+            CHARACTERS_CURRENCY = ['&euro;', '&#36;', '&pound;', '&yen;', '&curren;'], // EUR, USD, GBP, YEN, CUR
             currencyIndex = 0,
             currentCurrency = CHARACTERS_CURRENCY[currencyIndex],
             timerInterval,
@@ -53,18 +54,21 @@ var MT;
             },
 
             initTimer = function () {
-                clearInterval(initialTime); // DEBUG
+                timerDomElement.style.display = 'block';
+                //playpauseDomElement.className = 'running';
+                //clearInterval(initialTime); // DEBUG
                 initialTime = Date.parse(new Date());
                 timerInterval = window.setInterval(MT.tick, 1000);
             },
 
             cacheDomElements = function () {
                 timerDomElement = document.getElementById('timer');
+                //playpauseDomElement = document.getElementById('playpause');
                 timeDomElement = document.getElementById('time');
                 moneyDomElement = document.getElementById('money');
                 settingsIconDomElement = document.getElementById('settingsIcon');
                 settingsDomElement = document.getElementById('settings');
-                inputCurrencyDomElement = document.getElementById('inputCurrency');
+                inputCurrencyDomElement = document.getElementsByClassName('currency');
                 inputAttendeesDomElement = document.getElementById('inputAttendees');
                 inputSalaryDomElement = document.getElementById('inputSalary');
                 inputSubmitDomElement = document.getElementById('inputSubmit');
@@ -90,11 +94,21 @@ var MT;
                 }
             },
 
+            /*handleClickOnPlaypause = function () {
+                if (playpauseDomElement.className === 'running') {
+                    playpauseDomElement.className = ''
+                } else {
+                    playpauseDomElement.className = 'running';
+                }
+            },*/
+
             handleClickOnCurrency = function () {
                 currencyIndex++;
                 currencyIndex = currencyIndex % CHARACTERS_CURRENCY.length;
                 currentCurrency = CHARACTERS_CURRENCY[currencyIndex];
-                inputCurrencyDomElement.innerHTML = currentCurrency;
+                for (var i = 0; i < inputCurrencyDomElement.length; i++) {
+                    inputCurrencyDomElement.item(i).innerHTML = currentCurrency;
+                }        
             },
 
             handleClickOnSubmit = function () {
@@ -113,9 +127,12 @@ var MT;
             },
 
             registerClickEvents = function () {
+                //playpauseDomElement.addEventListener('click', MT.handleClickOnPlaypause, false);
                 settingsIconDomElement.addEventListener('click', MT.handleClickOnSettingsIcon, false);
-                //inputCurrencyDomElement.addEventListener('click', MT.handleClickOnCurrency, false);
-                //inputSubmitDomElement.addEventListener('click', MT.handleClickOnSubmit, false);
+                for (var i = 0; i < inputCurrencyDomElement.length; i++) {
+                    inputCurrencyDomElement.item(i).addEventListener('click', MT.handleClickOnCurrency, false);
+                }
+                inputSubmitDomElement.addEventListener('click', MT.handleClickOnSubmit, false);
             },
 
             debugSetBack = function (seconds) {
@@ -132,6 +149,7 @@ var MT;
             tick: tick,
             handleClickOnSettingsIcon: handleClickOnSettingsIcon,
             handleClickOnCurrency: handleClickOnCurrency,
+            //handleClickOnPlaypause: handleClickOnPlaypause,
             handleClickOnSubmit: handleClickOnSubmit
             //,debugSetBack: debugSetBack
         };

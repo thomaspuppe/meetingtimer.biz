@@ -75,7 +75,7 @@ gulp.task('replace', function () {
                 }
             ]
         }))
-        //.pipe(cleanhtml())
+        .pipe(cleanhtml())
         .pipe(gulp.dest('./web'));
 });
 
