@@ -1,0 +1,135 @@
+/* Variables */
+$bgColor: #232323
+$fontColor: #f0f0f0
+$focusColor: #24b681
+
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, em, img
+  margin: 0
+  padding: 0
+  border: 0
+  font-weight: inherit
+  font-style: inherit
+  font-size: 100%
+  font-family: inherit
+  vertical-align: baseline
+  -webkit-touch-callout: none
+  -webkit-user-select: none
+  -khtml-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+
+body 
+  text-align: center
+  background-color: $bgColor
+  color: $fontColor
+  font-family: Helvetica, Arial, FreeSans, sans-serif
+
+#timer
+  top: 10%
+  font-size: 20px
+  width: 100%
+  position: absolute
+  display: none
+
+//#playpause {
+//  cursor: pointer 
+//
+//  .play {
+//    font-size: 22px
+//  }
+//  .pause {
+//    letter-spacing: -3px
+//    vertical-align: text-top
+//    font-size: 17px
+//    display: none
+//  }
+//
+//  &.running {
+//    .play {
+//      display: none
+//    }
+//    .pause {
+//      display: inline
+//    }
+//  }
+//}
+
+#settingsIcon
+  position: absolute
+  right: 1.5em
+  top: 1.5em
+  cursor: pointer
+  padding: 10px 35px 16px 0px
+
+  span, 
+  span:before, 
+  span:after
+    cursor: pointer
+    border-radius: 1px
+    height: 5px
+    width: 35px
+    background: white
+    position: absolute
+    display: block
+    content: ''
+    transition: all 500ms ease-in-out
+  span:before
+    top: -10px
+  span:after
+    bottom: -10px
+  &.active
+    span
+      background-color: transparent
+    span:before, 
+    span:after
+      top: 0
+    span:before
+      transform: rotate(45deg)
+    span:after
+      transform: rotate(-45deg)
+
+#settings
+  display: none
+  background-color: $bgColor
+  font-size: 1.5em
+  line-height: 2.0em
+  position: absolute
+  border: $focusColor 0.5em solid
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  &.active
+    display: block
+    padding-top: 30%
+
+input
+  color: $fontColor
+  background-color: $bgColor
+  border: 0
+  border-bottom: 0.05em $fontColor solid
+  font-size: 1.2em
+  width: 2.4em
+  text-align: center
+  &[type=button]
+    border: 0.05em $fontColor solid
+    padding:  0.1em
+
+.currency
+  cursor: pointer
+
+.money
+  top: 25%
+  height: 50%
+  line-height: 50%
+  position: absolute
+  font-weight: bold
+  color: $focusColor
+  font-size: 90px
+  width: 100%
+  display: block
+  font-size: 20vw
+  line-height: 50vh
+  &--hugevalue
+    font-size: 15vw
