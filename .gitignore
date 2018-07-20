@@ -1,5 +1,1 @@
-.git
-.idea
-node_modules/
-*~
-.sass-cache
+.DS_Store
