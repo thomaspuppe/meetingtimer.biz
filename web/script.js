@@ -4,11 +4,6 @@ var MT;
 
     MT = (function () {
         var initialTime,
-            currentTime,
-            elapsedTime,
-            elapsedTimeHours,
-            elapsedTimeMinutes,
-            elapsedTimeSeconds,
             attendees = 0,
             salary = 0,
             sum = 0,
@@ -26,8 +21,9 @@ var MT;
             currencyIndex = 0,
             currentCurrency = CHARACTERS_CURRENCY[currencyIndex],
             valueIsHuge = false,
+            timerInterval,
 
-            updateCosts = function () {
+            updateCosts = function (elapsedTime) {
                 sum = ((attendees * salary * (elapsedTime / 3600000)))
                 sum = Math.round(sum * 100) / 100;
                 if (sum > 9999 && valueIsHuge === false) {
@@ -39,10 +35,10 @@ var MT;
                 moneyDomElement.innerHTML = sum.toLocaleString();
             },
 
-            updateTime = function () {
-                elapsedTimeSeconds = Math.floor((elapsedTime / 1000) % 60);
-                elapsedTimeMinutes = Math.floor((elapsedTime / 60000) % 60);
-                elapsedTimeHours = Math.floor((elapsedTime / 1000) / 3600);
+            updateTime = function (elapsedTime) {
+                var elapsedTimeSeconds = Math.floor((elapsedTime / 1000) % 60);
+                var elapsedTimeMinutes = Math.floor((elapsedTime / 60000) % 60);
+                var elapsedTimeHours = Math.floor((elapsedTime / 1000) / 3600);
 
                 elapsedTimeSeconds = (elapsedTimeSeconds > 9) ? elapsedTimeSeconds : '0' + elapsedTimeSeconds.toString();
                 elapsedTimeMinutes = (elapsedTimeMinutes > 9) ? elapsedTimeMinutes : '0' + elapsedTimeMinutes.toString();
@@ -51,10 +47,10 @@ var MT;
             },
 
             tick = function () {
-                currentTime = Date.parse(new Date());
-                elapsedTime = currentTime - initialTime;
-                updateCosts();
-                updateTime();
+                var currentTime = Date.parse(new Date());
+                var elapsedTime = currentTime - initialTime;
+                updateCosts(elapsedTime);
+                updateTime(elapsedTime);
             },
 
             initTimer = function () {
