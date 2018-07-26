@@ -34,14 +34,15 @@ var MT;
                 }
                 moneyDomElement.innerHTML = sum.toLocaleString();
             },
+            
+            addLeadingZero = function(num) {
+                return (num > 9) ? num.toString() : '0' + num.toString();
+            },
 
             updateTime = function (elapsedTime) {
-                var elapsedTimeSeconds = Math.floor((elapsedTime / 1000) % 60);
-                var elapsedTimeMinutes = Math.floor((elapsedTime / 60000) % 60);
+                var elapsedTimeSeconds = addLeadingZero(Math.floor((elapsedTime / 1000) % 60));
+                var elapsedTimeMinutes = addLeadingZero(Math.floor((elapsedTime / 60000) % 60));
                 var elapsedTimeHours = Math.floor((elapsedTime / 1000) / 3600);
-
-                elapsedTimeSeconds = (elapsedTimeSeconds > 9) ? elapsedTimeSeconds : '0' + elapsedTimeSeconds.toString();
-                elapsedTimeMinutes = (elapsedTimeMinutes > 9) ? elapsedTimeMinutes : '0' + elapsedTimeMinutes.toString();
 
                 timeDomElement.innerHTML = elapsedTimeHours + ':' + elapsedTimeMinutes + ':' + elapsedTimeSeconds;
             },
