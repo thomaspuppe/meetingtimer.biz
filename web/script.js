@@ -24,13 +24,13 @@ var MT;
             timerInterval,
 
             updateCosts = function (elapsedTime) {
-                sum = ((attendees * salary * (elapsedTime / 3600000)))
+                sum = ((attendees * salary * (elapsedTime / 3600000)));
                 sum = Math.round(sum * 100) / 100;
                 if (sum > 9999 && valueIsHuge === false) {
                     document.querySelector('.money').className += ' money--hugevalue';
                     valueIsHuge = true;
                 } else if (sum > 10) {
-                    sum = parseInt(sum, 10)
+                    sum = parseInt(sum, 10);
                 }
                 moneyDomElement.innerHTML = sum.toLocaleString();
             },
@@ -119,10 +119,6 @@ var MT;
                     inputCurrencyDomElement.item(i).addEventListener('click', MT.handleClickOnCurrency, false);
                 }
                 inputSubmitDomElement.addEventListener('click', MT.handleClickOnSubmit, false);
-            },
-
-            debugSetBack = function (seconds) {
-                initialTime -= seconds * 1000;
             },
 
             init = function () {
