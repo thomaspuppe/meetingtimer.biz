@@ -9,14 +9,12 @@ var MT;
             elapsedTimeHours,
             elapsedTimeMinutes,
             elapsedTimeSeconds,
-            timerIsRunning = false,
             attendees = 0,
             salary = 0,
             sum = 0,
             timerDomElement,
             timeDomElement,
             moneyDomElement,
-            //playpauseDomElement,
             settingsIconDomElement,
             settingsDomElement,
             inputAttendeesDomElement,
@@ -27,9 +25,7 @@ var MT;
             CHARACTERS_CURRENCY = ['&euro;', '&#36;', '&pound;', '&yen;', '&curren;'], // EUR, USD, GBP, YEN, CUR
             currencyIndex = 0,
             currentCurrency = CHARACTERS_CURRENCY[currencyIndex],
-            timerInterval,
             valueIsHuge = false,
-
 
             updateCosts = function () {
                 sum = ((attendees * salary * (elapsedTime / 3600000)))
@@ -63,15 +59,12 @@ var MT;
 
             initTimer = function () {
                 timerDomElement.style.display = 'block';
-                //playpauseDomElement.className = 'running';
-                //clearInterval(initialTime); // DEBUG
                 initialTime = Date.parse(new Date());
                 timerInterval = window.setInterval(MT.tick, 1000);
             },
 
             cacheDomElements = function () {
                 timerDomElement = document.getElementById('timer');
-                //playpauseDomElement = document.getElementById('playpause');
                 timeDomElement = document.getElementById('time');
                 moneyDomElement = document.getElementById('value');
                 settingsIconDomElement = document.getElementById('settingsIcon');
@@ -102,14 +95,6 @@ var MT;
                 }
             },
 
-            /*handleClickOnPlaypause = function () {
-                if (playpauseDomElement.className === 'running') {
-                    playpauseDomElement.className = ''
-                } else {
-                    playpauseDomElement.className = 'running';
-                }
-            },*/
-
             handleClickOnCurrency = function () {
                 currencyIndex++;
                 currencyIndex = currencyIndex % CHARACTERS_CURRENCY.length;
@@ -130,12 +115,9 @@ var MT;
                     initTimer();
                     closeSettings();
                 }
-
-
             },
 
             registerClickEvents = function () {
-                //playpauseDomElement.addEventListener('click', MT.handleClickOnPlaypause, false);
                 settingsIconDomElement.addEventListener('click', MT.handleClickOnSettingsIcon, false);
                 for (var i = 0; i < inputCurrencyDomElement.length; i++) {
                     inputCurrencyDomElement.item(i).addEventListener('click', MT.handleClickOnCurrency, false);
@@ -157,9 +139,7 @@ var MT;
             tick: tick,
             handleClickOnSettingsIcon: handleClickOnSettingsIcon,
             handleClickOnCurrency: handleClickOnCurrency,
-            //handleClickOnPlaypause: handleClickOnPlaypause,
             handleClickOnSubmit: handleClickOnSubmit
-            //,debugSetBack: debugSetBack
         };
     }());
     MT.init();
